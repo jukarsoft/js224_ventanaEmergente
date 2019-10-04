@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Funciones</title>
+	<style type="text/css">
+		.formulario {
+			width: 700px;
+			
+			border: 1px solid blue;
+			background-color: lightgrey;
+			margin:auto;
+			padding: 25px;
+			box-shadow: 5px solid blue;
+		}
+		label {
+			width: 250px;
+			display: inline-block;
+			line-height: 65px;
+		}
+
+		input {
+			width: 280px;
+
+		}
+		.input {
+			display: flex;
+			margin:auto;
+			width: 80px;
+
+		}
+		.bordes {
+				border-radius: 10px;
+				box-shadow: 4px 3px 6px black;
+			}
+	</style>
+
+	<script type="text/javascript">
+				
+		//Función para obtener el coste del viaje a una ciudad
+		function costeViaje () {
+			var noches = document.getElementById('noches').value;
+			var precio=60;
+			var ciudad= document.getElementById('ciudad').value;
+			var coche= document.getElementById('coche').value;
+			var total=costeHotel(noches,precio) + costeAvion(ciudad) + costeAlquilerCoche(coche);
+			
+			document.getElementById('total').value = total;
+			/*alert(`Total coste del viaje... ${total}`); */
+		}
+
+		//Funcion Coste Hotel
+		function costeHotel(noches, precio) {
+			return noches*precio;
+		}
+
+		//Función coste del avión
+		function costeAvion (destino) {
+			var resultado=0;
+			switch (destino) {
+				case'Paris':
+						resultado=180;
+					break;
+				case 'Londres':	
+						resultado=120;
+					break;
+				case 'Boston':
+						resultado=600;
+					break;	
+				default: resultado=500;
+			}	
+			return resultado
+		}	
+
+		//Función coste del alquiler del coche
+		function costeAlquilerCoche (numDias) {
+			var precio=40;
+			var calculo;
+			calculo=numDias*40;
+
+			if (numDias>= 7) {
+				calculo=calculo-50;
+			} else if (numDias>=3) {
+					calculo=calculo-20;
+			}
+			return calculo;
+		}
+		
+	</script>
+</head>
+<body>
+	<main>
+
+		<form class="formulario bordes" method="get" action="#">
+			<label >Numero de noches</label>
+			<input type="number" name="noches" placeholder="Numero de noches de hotel" id="noches" min=1 max=100 required  >
+			<br>
+			
+			<label>Ciudad destino </label>
+				<select id="ciudad" name="destino" required>
+					  				<option>Paris</option>
+					  				<option>Boston</option>
+					  				<option>Londres</option>
+		 		</select>
+		 		<br>
+			<label >Días de alquiler</label>
+			<input type="number" name="diasAlquiler" placeholder="Dias que se va alquilar el vehículo" id="coche" min=0 max=100 required>
+			<br>
+			<input class="input" type="button" name="envio" value="Alta reserva" width="200" required onclick="costeViaje()">
+			<br>
+			<label >Coste viaje</label>
+			<input type="number" name="totalcosteViaje" placeholder="" id="total" disabled >
+			<br>
+		</form>
+	</main>
+
+</body>
+</html>
